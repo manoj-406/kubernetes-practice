@@ -1,0 +1,30 @@
+# create a pod with
+# container:
+# name: test
+# image: alpine
+# args: sleep 1d
+# we need to pass the following environmental variables
+# USERNAME = admin
+# PASSWORD = admin@123
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: activity-4
+  labels:
+    env: Dev
+    app: test
+spec:
+  containers:
+    - name: test
+      image: alpine:3.19
+      args: 
+        - sleep
+        - "1d"
+      env:
+        - name: USERNAME
+          value: admin
+        
+        - name: PASSWORD
+          value: admin@123

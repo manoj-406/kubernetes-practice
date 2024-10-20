@@ -1,0 +1,16 @@
+# Lets start by writing a pod which will run nginx container
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx
+  labels:
+    env: Dev
+    app: web
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.27
+    args: 
+      - sleep
+      - "20s"

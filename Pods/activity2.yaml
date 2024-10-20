@@ -1,0 +1,22 @@
+# Create a Pod with two containers
+# pod name activity-2
+# containers:
+# ngnix
+# alpine with command sleep 1d
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: activity-2
+  labels:
+    env: Dev
+    app: web
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+    - name: alpine
+      image: alpine:3.19
+      args:
+        - sleep
+        - "1d"
