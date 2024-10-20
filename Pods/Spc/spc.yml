@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: springpetclinic
+  labels:
+    env: Dev
+    app: web
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+    - name: spc1
+      image: shaikkhajaibrahim/spcjan2024:1.0
+      ports:
+        - containerPort: 80
+          name: spc-1
+          protocol: TCP
+
