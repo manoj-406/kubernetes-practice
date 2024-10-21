@@ -1,2 +1,42 @@
 # Lets create multiple pods i.e. lets use replicaset
 
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: spc-rs
+  labels:
+    env: Dev
+    app: web
+spec:
+  minReadySeconds: 5
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: env
+        operator: In
+        values: 
+          - Dev
+      - key: app
+        operator: In
+        values: 
+          - web
+  template:
+    metadata:
+      labels:
+        env: Dev
+        app: web
+    spec:
+      containers:
+        - name: spc1
+          image: shaikkhajaibrahim/spcjan2024:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests: 
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 300Mi
