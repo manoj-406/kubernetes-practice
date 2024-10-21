@@ -13,7 +13,13 @@ spec:
     - name: spc1
       image: shaikkhajaibrahim/spcjan2024:1.0
       ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: spc-1
           protocol: TCP
-
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 300Mi
