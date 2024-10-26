@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: 
+    kubernetes.io/change-cause: "v1.0"
+  name: spc-deployment
+spec: 
+  minReadySeconds: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spc
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: spc
+    spec:
+      containers:
+        - name: spc-img
+          image: shaikkhajaibrahim/spcjan2024:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 124Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spc-svc
+  labels:
+    app: spc
+spec:
+  type: NodePort
+  selector:
+    app: spc
+  ports:
+    - port: 80
+      targetPort: 8080

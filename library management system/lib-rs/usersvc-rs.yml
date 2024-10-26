@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: usersvc-rs
+  labels:
+    app: usersvc
+spec:
+  minReadySeconds: 5
+  replicas: 2
+  selector:
+    matchLabels:
+      app: usersvc
+  template:
+    metadata: 
+      name: user-svc
+      labels:
+        app: usersvc
+    spec:
+      containers:
+        - name: user-svc
+          image: shaikkhajaibrahim/libuserssvc:1.0
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://user:password@userdb-svc:5432/usersdb"
+            - name: SECRET_KEY
+              value: "YtDEVWnL35aAIP-5yxeLjAZ49R920-mMNDfwPyWULu63HFsYzo0f-LO2InxC8eu428k"
+          ports:
+           - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: user-svc
+spec: 
+  type: NodePort
+  ports: 
+    - port: 8000
+      targetPort: 8000
+  selector: 
+    app: usersvc
+

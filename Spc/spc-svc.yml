@@ -1,3 +1,4 @@
+# This is a service
 ---
 apiVersion: v1
 kind: Service
@@ -6,7 +7,7 @@ metadata:
   labels:
     app: spc
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     env: Dev
     app: web
